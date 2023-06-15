@@ -3,3 +3,4 @@
 *.zip
 *.mp4
 *.avi
+/dumpVids/*
