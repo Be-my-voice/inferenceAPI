@@ -42,7 +42,8 @@ def jsonToVid(data):
 
     cap.release()
     cv2.destroyAllWindows()
+    return output_file
 
 with open("landmarks.json") as file:
     data1 = json.load(file)
-jsonToVid(data1)
+print(jsonToVid(data1))

@@ -29,6 +29,7 @@ print(tf.__version__)
 # function  to create a video from json file
 # need the 'sit_31.mp4' to resolve the object
 # parameter should be the list read from the json file
+# returns the filename (ex: 'outputFromJson.mp4')
 def jsonToVid(data):
     mp_pose = mp.solutions.pose
     mp_drawing = mp.solutions.drawing_utils
@@ -67,6 +68,7 @@ def jsonToVid(data):
 
     cap.release()
     cv2.destroyAllWindows()
+    return output_file
 
 def list_files_from_zip_path(zip_file_path):
     """ 
