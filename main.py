@@ -4,6 +4,7 @@ import numpy as np
 import json
 from mediapipe.framework.formats import landmark_pb2
 from fastapi import FastAPI, Request
+from inferModel import *
 
 def jsonToVid(data):
     mp_pose = mp.solutions.pose
@@ -53,10 +54,18 @@ def jsonToVid(data):
 
 app = FastAPI()
 
+@app.on_event("startup")
+async def initModel():
+    print("Loading model to API.....")
+    app.model = InferModel()
+    print("Model has been loaded to API")
+
+
 @app.post("/endpoint")
 async def process_payload(request: Request):
     payload = await request.json()
     fileName = jsonToVid(payload)
-    print('sdfsdf')
-    print(fileName)
-    return { "file-name": fileName }
+    prediction = app.model.predict(fileName)
+    # Delete the video after prediction
+    os.remove(fileName)
+    return { "prediction": prediction }
