@@ -28,6 +28,7 @@ while True:
     cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
     cv2.imshow('frame', frame)
+    
 
     # Check if the user pressed 'q' to quit
     if cv2.waitKey(1) & 0xFF == ord('q'):
