@@ -7,7 +7,7 @@ name: Build and deploy Python app to Azure Web App - modelBeMyVoice
 on:
   push:
     branches:
-      - feature/frontendApp
+      - feature/api
   workflow_dispatch:
 
 jobs:
