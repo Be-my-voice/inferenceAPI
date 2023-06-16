@@ -46,4 +46,5 @@ def jsonToVid(data):
 
 with open("landmarks.json") as file:
     data1 = json.load(file)
+    
 print(jsonToVid(data1))
