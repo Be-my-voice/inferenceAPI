@@ -22,6 +22,9 @@ while True:
     # resize image/frame so we can accommodate it on our screen
     # img = cv2.resize(img, (750, 750))
 
+    if not ret:
+        break
+
     # do Pose detection
     results = pose.process(img)
     # draw the detected pose on original video/ live stream
