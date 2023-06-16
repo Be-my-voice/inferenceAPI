@@ -39,8 +39,8 @@ def jsonToVid(data):
         
 
         mp_drawing.draw_landmarks(black_screen, landmark_subset, myFrozenObject,
-                            mp_drawing.DrawingSpec((255, 0, 0), 15, 2),
-                            mp_drawing.DrawingSpec((255, 0, 255), 15, 1)
+                            mp_drawing.DrawingSpec((0, 0, 255), 15, 2),
+                            mp_drawing.DrawingSpec((0, 255, 0), 15, 1)
                             )
         
         # cv2.imshow('MediaPipe Pose', black_screen)
