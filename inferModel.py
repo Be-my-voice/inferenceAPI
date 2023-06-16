@@ -366,7 +366,7 @@ class InferModel:
         download_dir = pathlib.Path('./dataset/')
         subset_paths = download_ucf_101_subset(FILEPATH, 
                                 num_classes = 4, 
-                                splits = {"train": 30, "val": 10, "test": 0},
+                                splits = {"train": 2, "val": 1, "test": 0},
                                 download_dir = download_dir)
 
 

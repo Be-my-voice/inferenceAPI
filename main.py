@@ -43,7 +43,7 @@ def jsonToVid(data):
                             mp_drawing.DrawingSpec((255, 0, 255), 15, 1)
                             )
         
-        cv2.imshow('MediaPipe Pose', black_screen)
+        # cv2.imshow('MediaPipe Pose', black_screen)
         out.write(black_screen)
 
     cap.release()
