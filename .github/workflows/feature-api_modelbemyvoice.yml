@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pip install seaborn && pip install pydot && sudo apt install graphviz -y && pip install tensorflow==2.10.0
       - name: Installations
-        run: pip install fastapi && pip install "uvicorn[standard]" && pip install opencv-python && sudo apt-get install -y libgl1-mesa-glx && pip install remotezip tqdm opencv-python einops
+        run: pip install fastapi && pip install "uvicorn[standard]" && pip install opencv-python && sudo apt-get install -y libgl1-mesa-glx && pip install remotezip tqdm opencv-python && pip install einops
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
