@@ -11,7 +11,19 @@ pose = mp_pose.Pose()
 
 cap= cv2.VideoCapture(0)
 
-writer= cv2.VideoWriter('basicvideo.avi', cv2.VideoWriter_fourcc(*'XVID'), 30, (640,480))
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+width = 480
+height = 480
+rescale_width = 720
+rescale_height = 720
+
+writer= cv2.VideoWriter('basicvideo.avi', cv2.VideoWriter_fourcc(*'XVID'), 30, (rescale_width,rescale_height))
+
+left = (frame_width - width) // 2
+top = (frame_height - height) // 2
+right = left + width
+bottom = top + height
 
 start_time = time.time()
 
@@ -28,14 +40,16 @@ while True:
     # frame = cv2.resize(frame, (720, 720))
     # frameToRec = cv2.resize(frameToRec, (720, 720))
 
-    if(elapsed_seconds >= 9 ):
+    if(elapsed_seconds >= 10 ):
         break
     
-    if elapsed_seconds >5 and elapsed_seconds < 9:
+    if elapsed_seconds >5 and elapsed_seconds < 10:
         # Add overlay text with the elapsed seconds
         text = "Elapsed seconds: {} : recording.....".format(elapsed_seconds)
         cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        writer.write(frameToRec)
+        cropped_frame = frameToRec[top:bottom, left:right]
+        resized_frame = cv2.resize(cropped_frame, (rescale_width, rescale_height))
+        writer.write(resized_frame)
 
     if elapsed_seconds <= 5:
         # Add overlay text with the elapsed seconds
