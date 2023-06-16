@@ -1,38 +1,33 @@
 import cv2
-import time
 
-# Define the video codec and create a VideoWriter object
+# Define the video capture object
+video = cv2.VideoCapture(0)
+
+# Get the default video frame width and height
+frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+# Define the video writer object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
+output_video = cv2.VideoWriter('output.avi', fourcc, 30.0, (frame_width, frame_height))
 
-# Create a VideoCapture object
-cap = cv2.VideoCapture(0)
+# Record video for 3 seconds
+start_time = cv2.getTickCount()
+while (cv2.getTickCount() - start_time) / cv2.getTickFrequency() < 3:
+    # Read a frame from the video capture
+    ret, frame = video.read()
 
-# Get the actual frame rate from the camera
-actual_fps = cap.get(cv2.CAP_PROP_FPS)
-
-# Define the desired duration and calculate the number of frames needed
-duration = 3  # Duration in seconds
-desired_frames = int(30 * duration)
-
-# Create an output video file
-output_video = cv2.VideoWriter('output.avi', fourcc, actual_fps, (640, 480))
-
-# Start capturing frames
-for _ in range(desired_frames):
-    # Read a frame from the camera
-    ret, frame = cap.read()
-
-    # Write the frame to the output video
+    # Write the frame to the video writer
     output_video.write(frame)
 
-    # Display the frame
-    cv2.imshow('Video', frame)
+    # Display the frame (optional)
+    cv2.imshow('Recording', frame)
     if cv2.waitKey(1) == ord('q'):
         break
 
-    time.sleep(0.333)
-
-# Release the resources
-cap.release()
+# Release the video capture and writer objects
+video.release()
 output_video.release()
+
+# Destroy any OpenCV windows
 cv2.destroyAllWindows()

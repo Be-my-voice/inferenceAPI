@@ -11,10 +11,11 @@ cap= cv2.VideoCapture(0)
 
 writer= cv2.VideoWriter('basicvideo.avi', cv2.VideoWriter_fourcc(*'XVID'), 30, (720,720))
 
-start_time = time.time()
+# Record video for 3 seconds
+start_time = cv2.getTickCount()
 
 while True:
-    elapsed_seconds = int(time.time() - start_time)
+    elapsed_seconds = (cv2.getTickCount() - start_time) / cv2.getTickFrequency()
 
     ret,frame= cap.read()
 
