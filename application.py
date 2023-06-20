@@ -7,12 +7,13 @@ import requests
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
-pose = mp_pose.Pose()
+pose = mp_pose.Pose(min_detection_confidence=0.7)
 
 cap= cv2.VideoCapture(0)
 
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+print(frame_width, frame_height)
 width = 480
 height = 480
 rescale_width = 720
@@ -40,13 +41,13 @@ while True:
     # frame = cv2.resize(frame, (720, 720))
     # frameToRec = cv2.resize(frameToRec, (720, 720))
 
-    if(elapsed_seconds >= 10 ):
+    if(elapsed_seconds >= 9 ):
         break
     
-    if elapsed_seconds >5 and elapsed_seconds < 10:
+    if elapsed_seconds >5 and elapsed_seconds < 9:
         # Add overlay text with the elapsed seconds
         text = "Elapsed seconds: {} : recording.....".format(elapsed_seconds)
-        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cropped_frame = frameToRec[top:bottom, left:right]
         resized_frame = cv2.resize(cropped_frame, (rescale_width, rescale_height))
         writer.write(resized_frame)
@@ -54,7 +55,7 @@ while True:
     if elapsed_seconds <= 5:
         # Add overlay text with the elapsed seconds
         text = "Elapsed seconds: {} : get ready.....".format(elapsed_seconds)
-        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     cv2.imshow('frame', frame)
 
