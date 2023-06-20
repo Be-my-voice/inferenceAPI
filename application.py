@@ -5,6 +5,9 @@ import time
 import json
 import requests
 
+CLOUD = "http://4.247.22.145:8000/endpoint"
+LOCAL = ""
+
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 pose = mp_pose.Pose(min_detection_confidence=0.7)
@@ -116,7 +119,7 @@ cv2.destroyAllWindows()
 headers = {'Content-Type': 'application/json'}
 
 # Send the POST request
-response = requests.post("http://4.247.22.145:8000/endpoint", data=payload, headers=headers)
+response = requests.post(CLOUD, data=payload, headers=headers)
 print("sent")
 
 # Check the response status code
