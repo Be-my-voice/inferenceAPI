@@ -439,8 +439,9 @@ class InferModel:
 
             predicted = tf.argmax(predicted, axis=1)
             return self.labels[predicted[0]]
-        except:
+        except Exception as e:
            print("An error occured")
+           print(e)
            return "Error"
 
 
