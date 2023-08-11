@@ -15,7 +15,7 @@ values = []
 
 for match in matches:
     l1 = match[0]
-    if(l1 == 'L'):
+    if(l1 == 'N'):
         pattern2 = r'\((.*?)\)'
         m = re.findall(pattern2, match)
         values.append(m[0].split(' '))

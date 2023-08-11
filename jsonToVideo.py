@@ -12,7 +12,7 @@ def jsonToVid(data):
 
     output_file = 'outputFromMobileJson.mp4'
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_file, fourcc, 30, (720, 720))
+    out = cv2.VideoWriter(output_file, fourcc, 30, (1280, 720))
 
     ret, frame = cap.read()
     results = pose.process(frame)
@@ -20,7 +20,7 @@ def jsonToVid(data):
     l = []
 
     for dt1 in data:
-        black_screen = np.zeros((720,720, 3), dtype=np.uint8)
+        black_screen = np.zeros((1280,720, 3), dtype=np.uint8)
         i = 0
         for dt in dt1:
             results.pose_landmarks.landmark[i].x = dt['x']
@@ -35,6 +35,9 @@ def jsonToVid(data):
         
         cv2.imshow('MediaPipe Pose', black_screen)
 
+        cv2.waitKey(0)
+
+        break
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
