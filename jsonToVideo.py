@@ -10,7 +10,7 @@ def jsonToVid(data):
     pose = mp_pose.Pose()
     cap = cv2.VideoCapture('sit_31.mp4')
 
-    output_file = 'outputFromJson.mp4'
+    output_file = 'outputFromMobileJson.mp4'
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_file, fourcc, 30, (720, 720))
 
@@ -44,7 +44,7 @@ def jsonToVid(data):
     cv2.destroyAllWindows()
     return output_file
 
-with open("landmarks.json") as file:
+with open("formattedMobileLandmarks.json") as file:
     data1 = json.load(file)
     
 print(jsonToVid(data1))
