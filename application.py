@@ -2,8 +2,6 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import time
-import json
-import requests
 
 CLOUD = "http://4.247.22.145:8000/endpoint"
 LOCAL = ""
@@ -29,10 +27,12 @@ top = (frame_height - height) // 2
 right = left + width
 bottom = top + height
 
-start_time = time.time()
+
+# Record video for 3 seconds
+start_time = cv2.getTickCount()
 
 while True:
-    elapsed_seconds = int(time.time() - start_time)
+    elapsed_seconds = (cv2.getTickCount() - start_time) / cv2.getTickFrequency()
 
     ret,frame= cap.read()
 
@@ -41,8 +41,8 @@ while True:
     frame = cv2.flip(frame, 1)
     frameToRec = cv2.flip(frameToRec, 1)
 
-    # frame = cv2.resize(frame, (720, 720))
-    # frameToRec = cv2.resize(frameToRec, (720, 720))
+    frame = cv2.resize(frame, (720, 720))
+    frameToRec = cv2.resize(frameToRec, (720, 720))
 
     if(elapsed_seconds >= 9 ):
         break
@@ -74,46 +74,20 @@ cv2.destroyAllWindows()
 
 cap= cv2.VideoCapture("basicvideo.avi")
 
-landmark_list = []
-
-dumb = None
-
 while cap.isOpened():
     ret,frameToIdentify= cap.read()
     # print(ret)
-
-    if not ret:
-        break
 
     results = pose.process(frameToIdentify)
 
     mp_drawing.draw_landmarks(frameToIdentify, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
         
-    pose_landmarks = []
-    if results.pose_landmarks is not None:
-        for landmark in results.pose_landmarks.landmark:
-            pose_landmarks.append({
-                'x': landmark.x,
-                'y': landmark.y,
-                'z': landmark.z
-            })
-    else:
-        pose_landmarks.append({
-            'x': 0,
-            'y': 0,
-            'z': 0
-        })
-
-    # Append the pose landmarks to the list
-    landmark_list.append(pose_landmarks)
-
     cv2.imshow('frame', frameToIdentify)
 
     cv2.waitKey(1)
 
-payload = json.dumps(landmark_list)
-
 cap.release()
+
 cv2.destroyAllWindows()
 
 headers = {'Content-Type': 'application/json'}
