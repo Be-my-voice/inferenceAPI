@@ -2,3 +2,7 @@
 /test-data/*
 *.mp4
 /__pycache__/*
+*.zip
+*.mp4
+*.avi
+/dumpVids/*
